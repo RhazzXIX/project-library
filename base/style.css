@@ -2,29 +2,36 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border: 1px solid black;
+  /* outline: 1px solid black; */
 }
 
 :root {
   font-size: 16px;
   --baseFonts: "Courier New", Courier, monospace, sans-serif;
-  font-style: italic;
+  /* pallete */
+  background-color: #CCD5AE;
+  background-color: #E9EDC9;
+  background-color: #FEFAE0;
+  background-color: #FAEDCD;
+  background-color: #D4A373;
 }
 body {
   font-family: var(--baseFonts);
 }
 
 header.main {
-  width: max-content;
-  margin: 20px auto;
-
+  text-align: center;
+  padding: 20px auto;
+  background-color: #CCD5AE;
   font-size: 1.8rem;
   font-weight: 700;
 }
 
 main.library {
+  background-color: #E9EDC9;
+  padding: 36px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 18px;
 }
@@ -32,6 +39,15 @@ main.library {
 div.card {
   width: 280px;
   height: 350px;
+  border: 3px solid #D4A373;
+  box-shadow: 1px 1px 8px #d48434;
+  border-radius: 18px;
+  background-color: #FAEDCD;
+  
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+  grid-template-rows: repeat(3, auto) 1fr repeat(2, auto);
 }
 
 ul {
@@ -40,4 +56,26 @@ ul {
 
 input[type="radio"] {
   vertical-align: -2px;
+}
+
+div.buttons {
+  justify-self: end;
+}
+
+div.buttons button {
+  appearance: none;
+  margin-left: 12px;
+  border-radius: 100%;
+}
+
+div.buttons button:hover {
+  appearance: none;
+  text-shadow: 1px 1px 8px rgb(0, 0, 0);
+}
+
+section#modify{
+  background-color: #CCD5AE;
+}
+footer.main {
+  background-color: #D4A373;
 }

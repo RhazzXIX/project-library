@@ -1,51 +1,53 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Project Library</title>
-        <link rel="stylesheet" href="./style.css" />
-        <script src="./java.js" defer></script>
-    </head>
-    <body>
-        <header class="main">My Library</header>
-        <main class="library">
-          <div class="card">
-            <h3 class="book-title">Atomic Habits</h3>
-            <p class="author">James Clear</p>
-            <p class="pages">320 pages</p>
-            <div class="summary">
-              <ul>
-                 <li>A revolutionary system to get 1 percent better every day</li>
-                 <li>This Small changes will have a transformative effect on your career,
-                     your relationships and your life
-                  </li>
-              </ul>
-            </div>
-            <div class="status">
-              <label for="unread">
-                <input type="radio" name="read" id="unread" checked />
-                Unread
-              </label>
-              <label for="read">
-                <input type="radio" name="read" id="read" />
-                Finished reading
-              </label>
-            </div>
-            <div class="buttons">
-              <button type="button">edit</button>
-              <button type="button">❌</button>
-            </div>
-            
-          </div>
-          <div class="card">
-            <h3 class="book-title">The Bullet Journal Method</h3>
-          </div>
-          <div class="card">
-            <h3 class="book-title">The 5 AM Club</h3>
-          </div>
-          
-
-        </main>
-        <footer class="main"></footer>
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Project Library</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./java.js" defer></script>
+  </head>
+  <body>
+    <header class="main">My Library</header>
+    <main class="library">
+      <div class="card">
+        <h3 class="book-title">Atomic Habits</h3>
+        <p class="author">James Clear</p>
+        <p class="pages">320 pages</p>
+        <div class="summary">
+          <ul>
+            <li>A revolutionary system to get 1 percent better every day</li>
+            <li>
+              This Small changes will have a transformative effect on your
+              career, your relationships and your life
+            </li>
+          </ul>
+        </div>
+        <div class="status">
+          <label for="unread">
+            <input type="radio" name="read" id="unread" checked />
+            Unread
+          </label>
+          <label for="read">
+            <input type="radio" name="read" id="read" />
+            Read
+          </label>
+        </div>
+        <div class="buttons">
+          <button type="button" id="edit-book">edit</button>
+          <button type="button" id="del-book">X</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="book-title">The Bullet Journal Method</h3>
+        
+      </div>
+      <div class="card">
+        <h3 class="book-title">The 5 AM Club</h3>
+      </div>
+    </main>
+    <section id="modify">
+      <button id="addBook" type="button"></button>
+    </section>
+    <footer class="main"></footer>
+  </body>
 </html>
