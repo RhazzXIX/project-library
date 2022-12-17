@@ -1,8 +1,22 @@
-const test = document.querySelector("div.test");
-test.addEventListener("click", () => {
-  if (test.textContent === "Click Me!") {
-    test.textContent = "Hello Up-Skilling World!";
-  } else {
-    test.textContent = "Click Me!";
-  }
-});
+const myLibrary = [
+  "Atomic Habits",
+  "The Bullet Journal Method",
+  "The 5 AM Club",
+];
+
+function CreateBookInfo(bookTitle, author, pages, read) {
+  this.title = bookTitle;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+  this.info = function () {
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}.`;
+  };
+}
+
+const atomicHabits = new CreateBookInfo(
+  "Atomic Habits",
+  "James Clear",
+  "230",
+  "unread"
+);

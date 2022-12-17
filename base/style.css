@@ -2,16 +2,34 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border: 1px solid black;
 }
 
 :root {
   font-size: 16px;
-  font-family: 'Courier New', Courier, monospace;
+  --baseFonts: 'Courier New', Courier, monospace ,sans-serif;
   font-style: italic;
 }
+body {
+  font-family: var(--baseFonts);
+}
 
-div.test {
+header.main {
   width: max-content;
   margin: 20px auto;
-  
+
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+main.library {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+div.card {
+  width: 280px;
+  height: 350px;
 }
