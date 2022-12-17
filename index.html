@@ -8,33 +8,30 @@
   </head>
   <body>
     <header class="main">My Library</header>
-    <main class="library">
+    <main id="shelve">
       <div class="card">
         <h3 class="book-title">Atomic Habits</h3>
         <p class="author">James Clear</p>
         <p class="pages">320 pages</p>
         <div class="summary">
-          <ul>
-            <li>A revolutionary system to get 1 percent better every day</li>
-            <li>
-              This Small changes will have a transformative effect on your
-              career, your relationships and your life
-            </li>
-          </ul>
+         <p>
+          A revolutionary system to get 1 percent better every day.
+          This Small changes will have a transformative effect on your career, your relationships and your life
+         </p>
         </div>
         <div class="status">
+          <input type="radio" name="read" id="unread" checked />
           <label for="unread">
-            <input type="radio" name="read" id="unread" checked />
             Unread
           </label>
+          <input type="radio" name="read" id="read" />
           <label for="read">
-            <input type="radio" name="read" id="read" />
             Read
           </label>
         </div>
         <div class="buttons">
-          <button type="button" id="edit-book">edit</button>
-          <button type="button" id="del-book">X</button>
+          <img src="./images/Icon/book-edit-outline.svg" alt="Edit Icon" class="editBtn" />
+          <img src="./images/Icon/trash-can-outline.svg" alt="Delete Icon" class="deltBtn" />
         </div>
       </div>
       <div class="card">

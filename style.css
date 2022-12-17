@@ -27,7 +27,7 @@ header.main {
   font-weight: 700;
 }
 
-main.library {
+main#shelve {
   background-color: #E9EDC9;
   padding: 36px;
   display: flex;
@@ -44,14 +44,10 @@ div.card {
   border-radius: 18px;
   background-color: #FAEDCD;
   
-  padding: 10px;
+  padding: 16px;
   display: grid;
   gap: 8px;
   grid-template-rows: repeat(3, auto) 1fr repeat(2, auto);
-}
-
-ul {
-  list-style: none;
 }
 
 input[type="radio"] {
@@ -59,13 +55,24 @@ input[type="radio"] {
 }
 
 div.buttons {
-  justify-self: end;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
 }
 
-div.buttons button {
-  appearance: none;
-  margin-left: 12px;
+div.buttons img {
+  width: 22px;
   border-radius: 100%;
+  filter: invert(30%) sepia(38%) saturate(465%) hue-rotate(331deg) brightness(102%) contrast(82%);
+}
+
+div.buttons img:hover {
+  box-shadow: 1px 1px 8px black;
+}
+
+div.buttons img:active {
+  box-shadow: 1px 1px 8px rgb(68, 56, 71);
+  filter: invert(53%) sepia(8%) saturate(9%) hue-rotate(28deg) brightness(93%) contrast(85%);
 }
 
 div.buttons button:hover {
