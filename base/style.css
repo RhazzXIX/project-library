@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 16px;
+  font-family: 'Courier New', Courier, monospace;
+  font-style: italic;
+}
+
+div.test {
+  width: max-content;
+  margin: 20px auto;
+  
+}
