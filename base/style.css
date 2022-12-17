@@ -7,7 +7,7 @@
 
 :root {
   font-size: 16px;
-  --baseFonts: 'Courier New', Courier, monospace ,sans-serif;
+  --baseFonts: "Courier New", Courier, monospace, sans-serif;
   font-style: italic;
 }
 body {
@@ -32,4 +32,12 @@ main.library {
 div.card {
   width: 280px;
   height: 350px;
+}
+
+ul {
+  list-style: none;
+}
+
+input[type="radio"] {
+  vertical-align: -2px;
 }
