@@ -18,6 +18,12 @@
 body {
   font-family: var(--baseFonts);
   position: relative;
+  width: 100vw;
+  min-width: 652px;
+  height: 100vh;
+  min-height: 948px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 header.main {
@@ -81,6 +87,31 @@ form#book-form {
   border-radius: 8px;
   border: 3px solid #D4A373;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+form#book-form
+button#close-form {
+  margin-left: auto;
+  margin-right: 0;
+  appearance: none;
+  color: white;
+  background-color: #d48434;
+  border: 3px solid;
+  border-color: #eedeb5 #e6be96 #e6be96 #eedeb5;
+  border-radius: 50%;
+  padding: 2px 4px;
+}
+
+form#book-form
+button#close-form:hover {
+  text-shadow: 1px 1px 10px rgb(251, 255, 0);
+}
+
+form#book-form
+button#close-form:active {
+  border-color: #e6be96 #eedeb5 #eedeb5 #e6be96;
 }
 
 form#book-form 
@@ -102,7 +133,7 @@ textarea {
 }
 
 form#book-form 
-fieldset button {
+fieldset button#submit {
   appearance: none;
   border: 3px solid;
   border-color: #eedeb5 #e6be96 #e6be96 #eedeb5;
@@ -117,12 +148,12 @@ fieldset button {
 }
 
 form#book-form 
-fieldset button:hover {
+fieldset button#submit:hover {
   text-shadow: 1px 1px 8px white;
 }
 
 form#book-form 
-fieldset button:active {
+fieldset button#submit:active {
   border-color: #e6be96 #eedeb5 #eedeb5 #e6be96;
 }
 

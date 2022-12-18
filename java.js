@@ -1,13 +1,30 @@
 const shelve = document.querySelector("main#shelve");
 const body = document.querySelector("body");
-const form = document.querySelector("section.form-container");
-body.removeChild(form);
 
 const addBooksBtn = document.querySelector("button#addBook");
-addBooksBtn.addEventListener("click", () => {
+addBooksBtn.addEventListener("click", (e) => {
   body.appendChild(form);
+  e.stopPropagation();
 });
 
+const form = document.querySelector("section.form-container");
+form.addEventListener(
+  "click",
+  (e) => {
+    if (form !== e.target) return;
+    e.stopPropagation();
+    body.removeChild(form);
+  },
+  true
+);
+
+const closeFormBtn = document.querySelector("button#close-form");
+closeFormBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  body.removeChild(form);
+});
+
+body.removeChild(form);
 const myLibrary = [];
 
 function Book(bookTitle, author, pages, summary) {
@@ -15,6 +32,7 @@ function Book(bookTitle, author, pages, summary) {
   this.author = author;
   this.pages = pages;
   this.summary = summary;
+  myLibrary.push(this);
 }
 
 const atomicHabits = new Book(
@@ -125,7 +143,8 @@ function deleteBook() {
 function addDelete() {
   const delBtn = document.querySelectorAll("img.delBtn");
   for (let i = 0; i < delBtn.length; i++) {
-    delBtn[i].addEventListener("click", () => {
+    delBtn[i].addEventListener("click", (e) => {
+      e.stopPropagation();
       deleteBook.call(delBtn[i]);
     });
   }
