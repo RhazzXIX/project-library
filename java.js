@@ -24,15 +24,13 @@ closeFormBtn.addEventListener("click", (e) => {
   body.removeChild(form);
 });
 
-body.removeChild(form);
 const myLibrary = [];
 
-function Book(bookTitle, author, pages, summary) {
-  this.title = bookTitle;
+function Book(title, author, pages, info) {
+  this.title = title;
   this.author = author;
   this.pages = pages;
-  this.summary = summary;
-  myLibrary.push(this);
+  this.info = info;
 }
 
 const atomicHabits = new Book(
@@ -42,7 +40,52 @@ const atomicHabits = new Book(
   "A revolutionary system to get 1 percent better every day. This Small changes will have a transformative effect on your career, your relationships and your life"
 );
 
-myLibrary.unshift(atomicHabits);
+// function to get book details
+const bookTitle = document.querySelector("input#title");
+const bookAuthor = document.querySelector("input#author");
+const bookPages = document.querySelector("input#page");
+const bookInfo = document.querySelector("textarea#info");
+
+const submitBtn = document.querySelector("button#submit");
+submitBtn.addEventListener(
+  "click",
+  (e) => {
+    e.stopPropagation();
+    checkSubmition(e);
+  },
+  false
+);
+
+function takeBookEntry() {
+  const newBook = new Book(
+    bookTitle.value,
+    bookAuthor.value,
+    bookPages.value,
+    bookInfo.value
+  );
+  myLibrary.push(newBook);
+}
+
+function checkSubmition() {
+  if (
+    Boolean(bookTitle.value) === true &&
+    Boolean(bookAuthor.value) === true &&
+    Boolean(bookPages.value) === true
+  ) {
+    event.preventDefault();
+    takeBookEntry();
+    addBooks();
+    body.removeChild(form);
+    clearForm();
+  }
+}
+
+function clearForm() {
+  bookTitle.value = "";
+  bookAuthor.value = "";
+  bookPages.value = "";
+  bookInfo.value = "";
+}
 
 // function to display books
 
@@ -65,9 +108,9 @@ function createCards() {
   pages.setAttribute("class", "pages");
   pages.textContent = `${this.pages} pages`;
 
-  const summary = document.createElement("p");
-  summary.setAttribute("class", "summary");
-  summary.textContent = this.summary;
+  const info = document.createElement("p");
+  info.setAttribute("class", "summary");
+  info.textContent = this.info;
 
   const card = document.createElement("div");
   card.setAttribute("class", "card");
@@ -75,7 +118,7 @@ function createCards() {
   card.appendChild(title);
   card.appendChild(author);
   card.appendChild(pages);
-  card.appendChild(summary);
+  card.appendChild(info);
   addStatus.call(card, this.title);
   addModifyButton.call(card);
   shelve.appendChild(card);
@@ -132,8 +175,6 @@ function addModifyButton() {
   this.appendChild(modify);
 }
 
-addBooks();
-
 function deleteBook() {
   const container = this.parentNode;
   const book = container.parentNode;
@@ -150,4 +191,4 @@ function addDelete() {
   }
 }
 
-addDelete();
+body.removeChild(form);
