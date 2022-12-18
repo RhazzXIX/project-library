@@ -2,16 +2,19 @@ const shelve = document.querySelector("main#shelve");
 
 const myLibrary = [];
 
-function Book(bookTitle, author, pages) {
+function Book(bookTitle, author, pages, summary) {
   this.title = bookTitle;
   this.author = author;
   this.pages = pages;
-  this.info = function () {
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}.`;
-  };
+  this.summary = summary;
 }
 
-const atomicHabits = new Book("Atomic Habits", "James Clear", "230");
+const atomicHabits = new Book(
+  "Atomic Habits",
+  "James Clear",
+  "230",
+  "A revolutionary system to get 1 percent better every day. This Small changes will have a transformative effect on your career, your relationships and your life"
+);
 
 myLibrary.unshift(atomicHabits);
 
@@ -36,11 +39,13 @@ function createCards() {
   pages.setAttribute("class", "pages");
   pages.textContent = `${this.pages} pages`;
 
-  const summary = document.createElement("div");
+  const summary = document.createElement("p");
   summary.setAttribute("class", "summary");
   summary.textContent = this.summary;
+
   const card = document.createElement("div");
   card.setAttribute("class", "card");
+  card.setAttribute("data-book", `${this.title}`);
   card.appendChild(title);
   card.appendChild(author);
   card.appendChild(pages);
@@ -64,7 +69,7 @@ function addStatus(title) {
 
   const unReadLabel = document.createElement("label");
   unReadLabel.setAttribute("for", `unread-${reference}`);
-  unReadLabel.textContent += "Unread";
+  unReadLabel.textContent += " Unread  ";
 
   const read = document.createElement("input");
   read.setAttribute("type", "radio");
@@ -74,7 +79,7 @@ function addStatus(title) {
 
   const readLabel = document.createElement("label");
   readLabel.setAttribute("for", `read-${reference}`);
-  readLabel.textContent += "Read";
+  readLabel.textContent += " Read";
 
   status.appendChild(unRead);
   status.appendChild(unReadLabel);
@@ -93,9 +98,31 @@ function addModifyButton() {
 
   const delBtn = document.createElement("img");
   delBtn.setAttribute("src", "./images/Icon/trash-can-outline.svg");
-  delBtn.setAttribute("class", "editBtn");
+  delBtn.setAttribute("class", "delBtn");
+  delBtn.setAttribute("alt", "Delete Icon");
 
   modify.appendChild(editBtn);
   modify.appendChild(delBtn);
   this.appendChild(modify);
 }
+
+addBooks();
+
+function deleteBook() {
+  const container = this.parentNode;
+  const book = container.parentNode;
+  shelve.removeChild(book);
+}
+
+function addDelete() {
+  const delBtn = document.querySelectorAll("img.delBtn");
+  for (let i = 0; i < delBtn.length; i++) {
+    console.log(delBtn[i]);
+    console.log(i);
+    delBtn[i].addEventListener("click", () => {
+      deleteBook.call(delBtn[i]);
+    });
+  }
+}
+
+addDelete();
