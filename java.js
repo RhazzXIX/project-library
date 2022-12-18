@@ -1,4 +1,12 @@
 const shelve = document.querySelector("main#shelve");
+const body = document.querySelector("body");
+const form = document.querySelector("section.form-container");
+body.removeChild(form);
+
+const addBooksBtn = document.querySelector("button#addBook");
+addBooksBtn.addEventListener("click", () => {
+  body.appendChild(form);
+});
 
 const myLibrary = [];
 
@@ -117,8 +125,6 @@ function deleteBook() {
 function addDelete() {
   const delBtn = document.querySelectorAll("img.delBtn");
   for (let i = 0; i < delBtn.length; i++) {
-    console.log(delBtn[i]);
-    console.log(i);
     delBtn[i].addEventListener("click", () => {
       deleteBook.call(delBtn[i]);
     });

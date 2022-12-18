@@ -7,7 +7,10 @@
     <script src="./java.js" defer></script>
   </head>
   <body>
-    <header class="main">My Library</header>
+    <header class="main">
+      <h1>My Library</h1>
+      <label for="addBook">Add Book <button id="addBook">+</button></label>
+    </header>
     <main id="shelve">
       <div class="card">
         <h3 class="book-title">Habits Atomic</h3>
@@ -35,8 +38,28 @@
         </div>
       </div>
     </main>
-    <section id="modify">
-      <button id="addBook" type="button"></button>
+    <section class="form-container">
+      <form action="" method="get" id="book-form">
+        <fieldset>
+          <legend>Book</legend>
+          <label for="title"> Title:
+          </label>
+          <input type="text" name="book" id="title" required/>
+          <label for="author">
+            Author: 
+          </label>
+          <input type="text" name="book" id="author" required />
+          <label for="page">
+            No. of Page:
+          </label>
+          <input type="text" name="book" id="page" inputmode="numeric" required />
+          <label for="info">
+            Small info about the book:
+          </label>
+          <textarea name="book" id="info" cols="30" rows="10"></textarea>
+          <button type="submit">Add Book</button>
+        </fieldset>
+      </form>
     </section>
     <footer class="main"></footer>
   </body>
