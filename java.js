@@ -31,13 +31,37 @@ function Book(title, author, pages, info) {
   this.author = author;
   this.pages = pages;
   this.info = info;
+  this.data = createBookData(title, author);
+}
+
+function createBookData(title, author) {
+  const data = [];
+  data.push(title.toLowerCase().split(" ")[0]);
+  data.push(author.toLowerCase().split(" ")[0]);
+  const bookData = data.reduce((datas, input) => {
+    if (input === data[1]) {
+      datas += input.split("")[0].toUpperCase();
+      datas += input.split("").splice(1, input.length).join("");
+    }
+    return datas;
+  });
+  return bookData;
 }
 
 const atomicHabits = new Book(
   "Atomic Habits",
   "James Clear",
   "230",
-  "A revolutionary system to get 1 percent better every day. This Small changes will have a transformative effect on your career, your relationships and your life"
+  "A revolutionary system to get 1 percent better every day. This Small changes will have a transformative effect on your career, your relationships and your life",
+  "atomicJames"
+);
+
+const theBulletJournal = new Book(
+  "the Bullet Journal",
+  "talka",
+  "123",
+  "for Journalling",
+  "the talka"
 );
 
 // function to get book details
@@ -52,6 +76,7 @@ submitBtn.addEventListener(
   (e) => {
     e.stopPropagation();
     checkSubmition(e);
+    checkLibrary();
   },
   false
 );
@@ -75,7 +100,8 @@ function checkSubmition() {
     event.preventDefault();
     takeBookEntry();
     addBooks();
-    body.removeChild(form);
+    addDelete();
+    // body.removeChild(form);
     clearForm();
   }
 }
@@ -85,6 +111,12 @@ function clearForm() {
   bookAuthor.value = "";
   bookPages.value = "";
   bookInfo.value = "";
+}
+
+function checkLibrary(title) {
+  if (bookTitle.value === myLibrary[0].title) {
+    console.log(true);
+  }
 }
 
 // function to display books
@@ -114,13 +146,13 @@ function createCards() {
 
   const card = document.createElement("div");
   card.setAttribute("class", "card");
-  card.setAttribute("data-book", `${this.title}`);
+  card.setAttribute("data-book", `${this.data}`);
   card.appendChild(title);
   card.appendChild(author);
   card.appendChild(pages);
   card.appendChild(info);
   addStatus.call(card, this.title);
-  addModifyButton.call(card);
+  addModifyButton.call(card, this.data);
   shelve.appendChild(card);
 }
 
@@ -157,7 +189,7 @@ function addStatus(title) {
   this.appendChild(status);
 }
 
-function addModifyButton() {
+function addModifyButton(data) {
   const modify = document.createElement("div");
   modify.setAttribute("class", "buttons");
 
@@ -169,6 +201,7 @@ function addModifyButton() {
   delBtn.setAttribute("src", "./images/Icon/trash-can-outline.svg");
   delBtn.setAttribute("class", "delBtn");
   delBtn.setAttribute("alt", "Delete Icon");
+  delBtn.setAttribute("data-book", `${data}`);
 
   modify.appendChild(editBtn);
   modify.appendChild(delBtn);
@@ -176,9 +209,21 @@ function addModifyButton() {
 }
 
 function deleteBook() {
-  const container = this.parentNode;
-  const book = container.parentNode;
-  shelve.removeChild(book);
+  const cards = shelve.querySelectorAll("div.card");
+  const data = this.getAttribute("data-book");
+  for (const card of cards) {
+    if (card.getAttribute("data-book") === data) {
+      shelve.removeChild(card);
+    }
+  }
+
+  const bookIndex = myLibrary.findIndex((books) => {
+    if (books.data === data) {
+      return true;
+    }
+  });
+  myLibrary.splice(bookIndex, 1);
+  console.log(bookIndex);
 }
 
 function addDelete() {
@@ -192,3 +237,6 @@ function addDelete() {
 }
 
 body.removeChild(form);
+
+myLibrary.push(atomicHabits);
+myLibrary.push(theBulletJournal);
