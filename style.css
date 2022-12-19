@@ -205,6 +205,13 @@ div.buttons button:hover {
 section#modify{
   background-color: #CCD5AE;
 }
+
+aside#notice {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
 footer.main {
   background-color: #D4A373;
   display: flex;
@@ -227,3 +234,5 @@ img#github:hover {
   border-radius: 50%;
   box-shadow: 1px 1px 10px white;
 }
+
+

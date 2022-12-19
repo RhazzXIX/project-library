@@ -9,7 +9,7 @@ addBooksBtn.addEventListener("click", (e) => {
 
 const form = document.querySelector("section.form-container");
 form.addEventListener(
-  "click",
+  "mousedown",
   (e) => {
     if (form !== e.target) return;
     e.stopPropagation();
@@ -76,7 +76,6 @@ submitBtn.addEventListener(
   (e) => {
     e.stopPropagation();
     checkSubmition(e);
-    checkLibrary();
   },
   false
 );
@@ -88,7 +87,10 @@ function takeBookEntry() {
     bookPages.value,
     bookInfo.value
   );
-  myLibrary.push(newBook);
+
+  if (checkLibrary.call(newBook)) {
+    myLibrary.push(newBook);
+  }
 }
 
 function checkSubmition() {
@@ -99,10 +101,26 @@ function checkSubmition() {
   ) {
     event.preventDefault();
     takeBookEntry();
-    addBooks();
+    postBooks();
     addDelete();
     // body.removeChild(form);
     clearForm();
+  }
+}
+
+function checkLibrary() {
+  const check1st = myLibrary.some((books) => books.title == this.title);
+  console.log(check1st);
+
+  const check2nd = myLibrary.some((books) => books.author == this.author);
+
+  console.log(check2nd);
+
+  if (check1st === false && check2nd === false) {
+    return true;
+  }
+  if (check1st === true && check2nd === true) {
+    alert("This book already exists in the library");
   }
 }
 
@@ -113,17 +131,22 @@ function clearForm() {
   bookInfo.value = "";
 }
 
-function checkLibrary(title) {
-  if (bookTitle.value === myLibrary[0].title) {
-    console.log(true);
+function checkShelve() {
+  const cards = shelve.querySelectorAll("div.card");
+
+  for (const card of cards) {
+    const data = card.getAttribute("data-book");
+    if (data === this.data) {
+      return true;
+    }
   }
 }
 
-// function to display books
-
-function addBooks() {
+function postBooks() {
   for (const books of myLibrary) {
-    createCards.call(books);
+    if (checkShelve.call(books) !== true) {
+      createCards.call(books);
+    }
   }
 }
 
@@ -223,7 +246,6 @@ function deleteBook() {
     }
   });
   myLibrary.splice(bookIndex, 1);
-  console.log(bookIndex);
 }
 
 function addDelete() {
