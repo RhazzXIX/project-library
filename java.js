@@ -56,14 +56,6 @@ const atomicHabits = new Book(
   "atomicJames"
 );
 
-const theBulletJournal = new Book(
-  "the Bullet Journal",
-  "talka",
-  "123",
-  "for Journalling",
-  "the talka"
-);
-
 // function to get book details
 const bookTitle = document.querySelector("input#title");
 const bookAuthor = document.querySelector("input#author");
@@ -90,6 +82,7 @@ function takeBookEntry() {
 
   if (checkLibrary.call(newBook)) {
     myLibrary.push(newBook);
+    return true;
   }
 }
 
@@ -100,27 +93,25 @@ function checkSubmition() {
     Boolean(bookPages.value) === true
   ) {
     event.preventDefault();
-    takeBookEntry();
-    postBooks();
-    addDelete();
-    // body.removeChild(form);
-    clearForm();
+    if (takeBookEntry()) {
+      postBooks();
+      addDelete();
+      body.removeChild(form);
+      clearForm();
+    }
   }
 }
 
 function checkLibrary() {
   const check1st = myLibrary.some((books) => books.title == this.title);
-  console.log(check1st);
-
   const check2nd = myLibrary.some((books) => books.author == this.author);
-
-  console.log(check2nd);
 
   if (check1st === false && check2nd === false) {
     return true;
   }
   if (check1st === true && check2nd === true) {
-    alert("This book already exists in the library");
+    body.appendChild(notice);
+    return false;
   }
 }
 
@@ -258,7 +249,18 @@ function addDelete() {
   }
 }
 
+const notice = document.querySelector("section#notice");
+notice.addEventListener("click", (e) => {
+  e.stopPropagation();
+  body.removeChild(notice);
+});
+
 body.removeChild(form);
+body.removeChild(notice);
+
+form.classList.toggle("hidden");
+notice.classList.toggle("hidden");
 
 myLibrary.push(atomicHabits);
-myLibrary.push(theBulletJournal);
+
+postBooks();

@@ -206,10 +206,27 @@ section#modify{
   background-color: #CCD5AE;
 }
 
-aside#notice {
+section#notice {
   position: absolute;
   height: 100%;
   width: 100%;
+  display: grid;
+  place-items: center;
+  justify-items: center;
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+section#notice
+aside.notice {
+  border: 3px solid #D4A373;
+  box-shadow: 1px 1px 8px #d48434;
+  border-radius: 18px;
+  background-color: #FAEDCD;
+  padding: 18px;
+  color: red;
+  font-size: 1.3rem;
+  font-weight: 700;
+  width: 200px;
 }
 
 footer.main {
@@ -236,3 +253,10 @@ img#github:hover {
 }
 
 
+section.form-container.hidden {
+  opacity: 0;
+}
+
+section#notice.hidden {
+  opacity: 0;
+}
