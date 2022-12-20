@@ -127,10 +127,20 @@ fieldset label:nth-of-type(1n+2) {
   margin-top: 12px;
 }
 
+form#book-form fieldset
+ul#status {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+  margin-top: 6px;
+}
+
 form#book-form 
 fieldset
 textarea {
   resize: none;
+  overflow: auto;
+  padding: 6px 6px;
 }
 
 form#book-form 
@@ -172,8 +182,42 @@ div.card {
   grid-template-rows: repeat(3, auto) 1fr repeat(2, auto);
 }
 
+div.card
+p.status {
+  font-size: 1.2rem;
+  text-align: center;
+  border: 2px solid #D4A373;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+div.card
+p.status:active {
+  color: white;
+}
+
+div.card
+p.status.finished {
+  background-color: #E9EDC9;
+}
+
+div.card
+p.status.reading {
+  background-color: #f8e2a0;
+}
+
+div.card
+p.status.unread {
+  background-color: #d3d3d3;
+}
+
+div.card
+p.status:hover {
+  background-color: #FEFAE0;
+}
+
 input[type="radio"] {
-  vertical-align: -2px;
+  vertical-align: -1.5px;
 }
 
 div.buttons {
@@ -252,7 +296,7 @@ img#github:hover {
   box-shadow: 1px 1px 10px white;
 }
 
-
+/* For the form and notice to be hidden on load */
 section.form-container.hidden {
   opacity: 0;
 }

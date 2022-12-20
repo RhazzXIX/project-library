@@ -32,7 +32,17 @@ function Book(title, author, pages, info) {
   this.pages = pages;
   this.info = info;
   this.data = createBookData(title, author);
+  this.status = Book.prototype.Status();
 }
+
+Book.prototype.Status = function () {
+  const status = document.getElementsByName("status");
+  for (const result of status) {
+    if (result.checked) {
+      return result.value;
+    }
+  }
+};
 
 function createBookData(title, author) {
   const data = [];
@@ -96,8 +106,8 @@ function checkSubmition() {
     if (takeBookEntry()) {
       postBooks();
       addDelete();
-      body.removeChild(form);
       clearForm();
+      body.removeChild(form);
     }
   }
 }
@@ -120,6 +130,12 @@ function clearForm() {
   bookAuthor.value = "";
   bookPages.value = "";
   bookInfo.value = "";
+  const status = document.getElementsByName("status");
+  for (const result of status) {
+    if (result.value === "Not Read") {
+      result.checked = true;
+    }
+  }
 }
 
 function checkShelve() {
@@ -165,41 +181,32 @@ function createCards() {
   card.appendChild(author);
   card.appendChild(pages);
   card.appendChild(info);
-  addStatus.call(card, this.title);
+  addStatus.call(card, this.status);
   addModifyButton.call(card, this.data);
   shelve.appendChild(card);
 }
 
-function addStatus(title) {
-  const reference = title.toLowerCase().split(" ").join("-");
-  const status = document.createElement("div");
+function addStatus(value) {
+  const status = document.createElement("p");
   status.setAttribute("class", "status");
 
-  const unRead = document.createElement("input");
-  unRead.setAttribute("type", "radio");
-  unRead.setAttribute("name", `${reference}`);
-  unRead.setAttribute("id", `unread-${reference}`);
-  unRead.setAttribute("value", "unread");
-  unRead.setAttribute("checked", "");
+  switch (value) {
+    case "Not Read":
+      status.classList.add("unread");
+      status.textContent = "Not Read";
+      break;
+    case "Reading":
+      status.classList.add("reading");
+      status.textContent = "Reading";
+      break;
+    case "Finished":
+      status.classList.add("finished");
+      status.textContent = "Finished";
+      break;
+    default:
+      return;
+  }
 
-  const unReadLabel = document.createElement("label");
-  unReadLabel.setAttribute("for", `unread-${reference}`);
-  unReadLabel.textContent += " Unread  ";
-
-  const read = document.createElement("input");
-  read.setAttribute("type", "radio");
-  read.setAttribute("name", `${reference}`);
-  read.setAttribute("id", `read-${reference}`);
-  read.setAttribute("value", "read");
-
-  const readLabel = document.createElement("label");
-  readLabel.setAttribute("for", `read-${reference}`);
-  readLabel.textContent += " Read";
-
-  status.appendChild(unRead);
-  status.appendChild(unReadLabel);
-  status.appendChild(read);
-  status.appendChild(readLabel);
   this.appendChild(status);
 }
 

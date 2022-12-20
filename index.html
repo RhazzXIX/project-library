@@ -30,6 +30,27 @@
             No. of Page:
           </label>
           <input type="number" name="book" id="page" min="1" required />
+          <label for="status">What's your status on this book?</label>
+          <ul id="status">
+            <li>
+              <label for="not-read">
+                <input type="radio" name="status" id="not-read" value="Not Read" checked /> 
+              Not Read
+              </label>
+            </li>
+            <li>
+              <label for="reading">
+                <input type="radio" name="status" id="reading" value="Reading"  required/> 
+              Reading
+              </label>
+            </li>
+            <li>
+              <label for="finished">
+                <input type="radio" name="status" id="finished" value="Finished" />
+                Finished
+                 </label>
+            </li>
+          </ul>
           <label for="info">
             Small info about the book:
           </label>
