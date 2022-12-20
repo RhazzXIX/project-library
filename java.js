@@ -44,6 +44,16 @@ Book.prototype.Status = function () {
   }
 };
 
+Book.prototype.UpdateStatus = function (status) {
+  const data = status.getAttribute("data-book");
+
+  for (let i = 0; i < myLibrary.length; i++) {
+    if (myLibrary[i].data === data) {
+      myLibrary[i].status = status.textContent;
+    }
+  }
+};
+
 function createBookData(title, author) {
   const data = [];
   data.push(title.toLowerCase().split(" ")[0]);
@@ -176,20 +186,20 @@ function createCards() {
 
   const card = document.createElement("div");
   card.setAttribute("class", "card");
-  card.setAttribute("data-book", `${this.data}`);
+  card.setAttribute("data-book", this.data);
   card.appendChild(title);
   card.appendChild(author);
   card.appendChild(pages);
   card.appendChild(info);
-  addStatus.call(card, this.status);
+  addStatus.call(card, this.status, this.data);
   addModifyButton.call(card, this.data);
   shelve.appendChild(card);
 }
 
-function addStatus(value) {
+function addStatus(value, data) {
   const status = document.createElement("p");
   status.setAttribute("class", "status");
-
+  status.setAttribute("data-book", data);
   switch (value) {
     case "Not Read":
       status.classList.add("unread");
@@ -208,6 +218,7 @@ function addStatus(value) {
   }
 
   status.addEventListener("click", (e) => {
+    e.stopPropagation();
     switch (status.className) {
       case "status unread":
         status.className = "status reading";
@@ -220,7 +231,9 @@ function addStatus(value) {
       default:
         status.className = "status unread";
         status.textContent = "Not Read";
+        break;
     }
+    Book.prototype.UpdateStatus(status);
   });
 
   this.appendChild(status);

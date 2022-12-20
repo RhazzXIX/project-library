@@ -175,7 +175,7 @@ fieldset button#submit:active {
 
 div.card {
   width: 280px;
-  height: max-content;
+  height: 350px;
   border: 3px solid #D4A373;
   box-shadow: 1px 1px 8px #d48434;
   border-radius: 18px;
@@ -191,6 +191,7 @@ div.card
 p.summary {
   font-family: 'type-writer', var(--baseFonts);
   font-size: 0.9rem;
+  color: #383838;
 }
 
 div.card
