@@ -207,6 +207,22 @@ function addStatus(value) {
       return;
   }
 
+  status.addEventListener("click", (e) => {
+    switch (status.className) {
+      case "status unread":
+        status.className = "status reading";
+        status.textContent = "Reading";
+        break;
+      case "status reading":
+        status.className = "status finished";
+        status.textContent = "Finished";
+        break;
+      default:
+        status.className = "status unread";
+        status.textContent = "Not Read";
+    }
+  });
+
   this.appendChild(status);
 }
 
@@ -214,9 +230,9 @@ function addModifyButton(data) {
   const modify = document.createElement("div");
   modify.setAttribute("class", "buttons");
 
-  const editBtn = document.createElement("img");
-  editBtn.setAttribute("src", "./images/Icon/book-edit-outline.svg");
-  editBtn.setAttribute("class", "editBtn");
+  // const editBtn = document.createElement("img");
+  // editBtn.setAttribute("src", "./images/Icon/book-edit-outline.svg");
+  // editBtn.setAttribute("class", "editBtn");
 
   const delBtn = document.createElement("img");
   delBtn.setAttribute("src", "./images/Icon/trash-can-outline.svg");
@@ -224,7 +240,7 @@ function addModifyButton(data) {
   delBtn.setAttribute("alt", "Delete Icon");
   delBtn.setAttribute("data-book", `${data}`);
 
-  modify.appendChild(editBtn);
+  // modify.appendChild(editBtn);
   modify.appendChild(delBtn);
   this.appendChild(modify);
 }

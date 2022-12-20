@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'type-writer';
+  src: url(./font/Momоt___.ttf);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -170,7 +175,7 @@ fieldset button#submit:active {
 
 div.card {
   width: 280px;
-  height: 350px;
+  height: max-content;
   border: 3px solid #D4A373;
   box-shadow: 1px 1px 8px #d48434;
   border-radius: 18px;
@@ -183,12 +188,19 @@ div.card {
 }
 
 div.card
+p.summary {
+  font-family: 'type-writer', var(--baseFonts);
+  font-size: 0.9rem;
+}
+
+div.card
 p.status {
   font-size: 1.2rem;
   text-align: center;
   border: 2px solid #D4A373;
   border-radius: 8px;
   padding: 6px;
+  cursor: pointer;
 }
 
 div.card
@@ -213,7 +225,7 @@ p.status.unread {
 
 div.card
 p.status:hover {
-  background-color: #FEFAE0;
+  text-shadow: 1px 1px 10px rgb(0, 238, 255);
 }
 
 input[type="radio"] {
