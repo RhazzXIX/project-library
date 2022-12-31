@@ -1,11 +1,11 @@
 {
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
+        "source.fixAll.eslint": false
     },
     "eslint.validate": ["javascript"],
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.formatOnSave": true,
+        "editor.formatOnSave": false,
     },
     "liveServer.settings.port": 5501
 }

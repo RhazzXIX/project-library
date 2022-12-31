@@ -7,24 +7,18 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* outline: 1px solid black; */
 }
 
 :root {
   font-size: 16px;
   --baseFonts: "Courier New", Courier, monospace, sans-serif;
-  /* pallete */
-  background-color: #CCD5AE;
-  background-color: #E9EDC9;
-  background-color: #FEFAE0;
-  background-color: #FAEDCD;
-  background-color: #D4A373;
 }
 
 body {
   font-family: var(--baseFonts);
   position: relative;
   width: 100vw;
+  overflow-x: hidden;
   min-width: 652px;
   height: 100vh;
   min-height: 948px;

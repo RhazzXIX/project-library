@@ -26,32 +26,42 @@ closeFormBtn.addEventListener("click", (e) => {
 
 const myLibrary = [];
 
-function Book(title, author, pages, info) {
+function Book(title, author, pages, info, status) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.info = info;
   this.data = createBookData(title, author);
-  this.status = Book.prototype.Status();
+  this.status = status;
 }
 
-Book.prototype.Status = function () {
+function getStatus() {
   const status = document.getElementsByName("status");
-  for (const result of status) {
+  let value;
+  status.forEach((result) => {
     if (result.checked) {
-      return result.value;
+      value = result.value;
     }
-  }
-};
+  });
+  return value;
+}
 
 Book.prototype.UpdateStatus = function (status) {
-  const data = status.getAttribute("data-book");
-
-  for (let i = 0; i < myLibrary.length; i++) {
-    if (myLibrary[i].data === data) {
-      myLibrary[i].status = status.textContent;
-    }
+  switch (status.className) {
+    case "status unread":
+      status.className = "status reading";
+      status.textContent = "Reading";
+      break;
+    case "status reading":
+      status.className = "status finished";
+      status.textContent = "Finished";
+      break;
+    default:
+      status.className = "status unread";
+      status.textContent = "Not Read";
+      break;
   }
+  this.status = status.textContent;
 };
 
 function createBookData(title, author) {
@@ -67,14 +77,6 @@ function createBookData(title, author) {
   });
   return bookData;
 }
-
-const atomicHabits = new Book(
-  "Atomic Habits",
-  "James Clear",
-  "230",
-  "A revolutionary system to get 1 percent better every day. This Small changes will have a transformative effect on your career, your relationships and your life",
-  "atomicJames"
-);
 
 // function to get book details
 const bookTitle = document.querySelector("input#title");
@@ -97,7 +99,8 @@ function takeBookEntry() {
     bookTitle.value,
     bookAuthor.value,
     bookPages.value,
-    bookInfo.value
+    bookInfo.value,
+    getStatus(),
   );
 
   if (checkLibrary.call(newBook)) {
@@ -115,7 +118,6 @@ function checkSubmition() {
     event.preventDefault();
     if (takeBookEntry()) {
       postBooks();
-      addDelete();
       clearForm();
       body.removeChild(form);
     }
@@ -123,16 +125,14 @@ function checkSubmition() {
 }
 
 function checkLibrary() {
-  const check1st = myLibrary.some((books) => books.title == this.title);
-  const check2nd = myLibrary.some((books) => books.author == this.author);
-
-  if (check1st === false && check2nd === false) {
-    return true;
-  }
+  const check1st = myLibrary.some((books) => books.title === this.title);
+  const check2nd = myLibrary.some((books) => books.author === this.author);
   if (check1st === true && check2nd === true) {
     body.appendChild(notice);
     return false;
   }
+  return true;
+
 }
 
 function clearForm() {
@@ -141,30 +141,34 @@ function clearForm() {
   bookPages.value = "";
   bookInfo.value = "";
   const status = document.getElementsByName("status");
-  for (const result of status) {
-    if (result.value === "Not Read") {
-      result.checked = true;
+  status.forEach((state) => {
+    if (state.value === "Not Read") {
+      const value = state;
+      value.checked = true;
     }
-  }
+  });
 }
 
 function checkShelve() {
   const cards = shelve.querySelectorAll("div.card");
+  let onShelve = false;
 
-  for (const card of cards) {
+  cards.forEach((card) => {
     const data = card.getAttribute("data-book");
     if (data === this.data) {
-      return true;
+      onShelve = true;
     }
-  }
+  });
+  return onShelve;
 }
 
 function postBooks() {
-  for (const books of myLibrary) {
+  myLibrary.forEach((books) => {
     if (checkShelve.call(books) !== true) {
       createCards.call(books);
+      addDelete();
     }
-  }
+  });
 }
 
 function createCards() {
@@ -203,15 +207,15 @@ function addStatus(value, data) {
   switch (value) {
     case "Not Read":
       status.classList.add("unread");
-      status.textContent = "Not Read";
+      status.textContent = value;
       break;
     case "Reading":
       status.classList.add("reading");
-      status.textContent = "Reading";
+      status.textContent = value;
       break;
     case "Finished":
       status.classList.add("finished");
-      status.textContent = "Finished";
+      status.textContent = value;
       break;
     default:
       return;
@@ -219,21 +223,11 @@ function addStatus(value, data) {
 
   status.addEventListener("click", (e) => {
     e.stopPropagation();
-    switch (status.className) {
-      case "status unread":
-        status.className = "status reading";
-        status.textContent = "Reading";
-        break;
-      case "status reading":
-        status.className = "status finished";
-        status.textContent = "Finished";
-        break;
-      default:
-        status.className = "status unread";
-        status.textContent = "Not Read";
-        break;
-    }
-    Book.prototype.UpdateStatus(status);
+    myLibrary.forEach((books) => {
+      if (books.data === data) {
+        books.UpdateStatus(status);
+      }
+    });
   });
 
   this.appendChild(status);
@@ -261,11 +255,11 @@ function addModifyButton(data) {
 function deleteBook() {
   const cards = shelve.querySelectorAll("div.card");
   const data = this.getAttribute("data-book");
-  for (const card of cards) {
+  cards.forEach((card) => {
     if (card.getAttribute("data-book") === data) {
       shelve.removeChild(card);
     }
-  }
+  });
 
   const bookIndex = myLibrary.findIndex((books) => {
     if (books.data === data) {
@@ -290,6 +284,14 @@ notice.addEventListener("click", (e) => {
   e.stopPropagation();
   body.removeChild(notice);
 });
+
+const atomicHabits = new Book(
+  "Atomic Habits",
+  "James Clear",
+  "230",
+  "A revolutionary system to get 1 percent better every day. This Small changes will have a transformative effect on your career, your relationships and your life",
+  "Not Read",
+);
 
 body.removeChild(form);
 body.removeChild(notice);
