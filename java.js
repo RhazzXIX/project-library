@@ -1,13 +1,19 @@
+// Cache DOM
 const shelve = document.querySelector("main#shelve");
 const body = document.querySelector("body");
-
+const form = document.querySelector("section.form-container");
 const addBooksBtn = document.querySelector("button#addBook");
+const closeFormBtn = document.querySelector("button#close-form");
+const bookTitle = document.querySelector("input#title");
+const bookAuthor = document.querySelector("input#author");
+const bookPages = document.querySelector("input#page");
+const bookInfo = document.querySelector("textarea#info");
+
 addBooksBtn.addEventListener("click", (e) => {
   body.appendChild(form);
   e.stopPropagation();
 });
 
-const form = document.querySelector("section.form-container");
 form.addEventListener(
   "mousedown",
   (e) => {
@@ -18,7 +24,6 @@ form.addEventListener(
   true
 );
 
-const closeFormBtn = document.querySelector("button#close-form");
 closeFormBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   body.removeChild(form);
@@ -26,13 +31,33 @@ closeFormBtn.addEventListener("click", (e) => {
 
 const myLibrary = [];
 
-function Book(title, author, pages, info, status) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.info = info;
-  this.data = createBookData(title, author);
-  this.status = status;
+class Book {
+  constructor(title, author, pages, info, status) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.info = info;
+    this.data = createBookData(title, author);
+    this.status = status;
+  }
+
+  UpdateStatus(status) {
+    switch (status.className) {
+      case "status unread":
+        status.className = "status reading";
+        status.textContent = "Reading";
+        break;
+      case "status reading":
+        status.className = "status finished";
+        status.textContent = "Finished";
+        break;
+      default:
+        status.className = "status unread";
+        status.textContent = "Not Read";
+        break;
+    }
+    this.status = status.textContent;
+  }
 }
 
 function getStatus() {
@@ -45,24 +70,6 @@ function getStatus() {
   });
   return value;
 }
-
-Book.prototype.UpdateStatus = function (status) {
-  switch (status.className) {
-    case "status unread":
-      status.className = "status reading";
-      status.textContent = "Reading";
-      break;
-    case "status reading":
-      status.className = "status finished";
-      status.textContent = "Finished";
-      break;
-    default:
-      status.className = "status unread";
-      status.textContent = "Not Read";
-      break;
-  }
-  this.status = status.textContent;
-};
 
 function createBookData(title, author) {
   const data = [];
@@ -77,12 +84,6 @@ function createBookData(title, author) {
   });
   return bookData;
 }
-
-// function to get book details
-const bookTitle = document.querySelector("input#title");
-const bookAuthor = document.querySelector("input#author");
-const bookPages = document.querySelector("input#page");
-const bookInfo = document.querySelector("textarea#info");
 
 const submitBtn = document.querySelector("button#submit");
 submitBtn.addEventListener(
@@ -100,7 +101,7 @@ function takeBookEntry() {
     bookAuthor.value,
     bookPages.value,
     bookInfo.value,
-    getStatus(),
+    getStatus()
   );
 
   if (checkLibrary.call(newBook)) {
@@ -132,7 +133,6 @@ function checkLibrary() {
     return false;
   }
   return true;
-
 }
 
 function clearForm() {
@@ -266,6 +266,7 @@ function deleteBook() {
       return true;
     }
   });
+  console.log(bookIndex);
   myLibrary.splice(bookIndex, 1);
 }
 
@@ -290,7 +291,7 @@ const atomicHabits = new Book(
   "James Clear",
   "230",
   "A revolutionary system to get 1 percent better every day. This Small changes will have a transformative effect on your career, your relationships and your life",
-  "Not Read",
+  "Not Read"
 );
 
 body.removeChild(form);
