@@ -166,7 +166,6 @@ function postBooks() {
   myLibrary.forEach((books) => {
     if (checkShelve.call(books) !== true) {
       createCards.call(books);
-      addDelete();
     }
   });
 }
@@ -245,7 +244,12 @@ function addModifyButton(data) {
   delBtn.setAttribute("src", "./images/Icon/trash-can-outline.svg");
   delBtn.setAttribute("class", "delBtn");
   delBtn.setAttribute("alt", "Delete Icon");
-  delBtn.setAttribute("data-book", `${data}`);
+  delBtn.setAttribute("data-book", data);
+
+  delBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    deleteBook.call(delBtn);
+  });
 
   // modify.appendChild(editBtn);
   modify.appendChild(delBtn);
@@ -260,24 +264,8 @@ function deleteBook() {
       shelve.removeChild(card);
     }
   });
-
-  const bookIndex = myLibrary.findIndex((books) => {
-    if (books.data === data) {
-      return true;
-    }
-  });
-  console.log(bookIndex);
+  const bookIndex = myLibrary.findIndex((books) => books.data === data);
   myLibrary.splice(bookIndex, 1);
-}
-
-function addDelete() {
-  const delBtn = document.querySelectorAll("img.delBtn");
-  for (let i = 0; i < delBtn.length; i++) {
-    delBtn[i].addEventListener("click", (e) => {
-      e.stopPropagation();
-      deleteBook.call(delBtn[i]);
-    });
-  }
 }
 
 const notice = document.querySelector("section#notice");
