@@ -110,19 +110,20 @@ function takeBookEntry() {
 }
 
 function checkSubmition() {
-  if (
-    Boolean(bookTitle.value) === true &&
-    Boolean(bookAuthor.value) === true &&
-    Boolean(bookPages.value) === true
-  ) {
-    event.preventDefault();
-    if (takeBookEntry()) {
-      postBooks();
-      clearForm();
-      body.removeChild(form);
-    }
-  }
+  event.preventDefault();
+  if (!bookTitle.checkValidity()) {
+    bookTitle.reportValidity();
+  } else if (!bookAuthor.checkValidity()) {
+      bookAuthor.reportValidity();
+    } else if (!bookPages.checkValidity()) {
+        bookPages.reportValidity();
+      } else if (takeBookEntry()) {
+          postBooks();
+          clearForm();
+          body.removeChild(form);
+        }
 }
+
 
 function checkLibrary() {
   const check1st = myLibrary.some((books) => books.title === this.title);
