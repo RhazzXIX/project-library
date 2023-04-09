@@ -1,5 +1,6 @@
 import './styles/style.css'
 import { initializeApp } from 'firebase/app'
+import {collection, addDoc, getDocs, getFirestore} from 'firebase/firestore'
 
 const firebaseApp = initializeApp({
   apiKey: "AIzaSyAwzlgosGqSGsrx4CzJK4liK09JnJ1Dy9w",
@@ -10,6 +11,8 @@ const firebaseApp = initializeApp({
   appId: "1:459523889275:web:2ad594c8e377bdd0c82ade",
   measurementId: "G-488283056F"
 })
+
+const database = getFirestore(firebaseApp)
 
 
 const shelve = document.querySelector("main#shelve");
@@ -108,38 +111,7 @@ submitBtn.addEventListener(
   false
 );
 
-function takeBookEntry() {
-  const newBook = new Book(
-    bookTitle.value,
-    bookAuthor.value,
-    bookPages.value,
-    bookInfo.value,
-    getStatus(),
-  );
-
-  if (checkLibrary.call(newBook)) {
-    myLibrary.push(newBook);
-    return true;
-  }
-}
-
-function checkSubmition() {
-  event.preventDefault();
-  if (!bookTitle.checkValidity()) {
-    bookTitle.reportValidity();
-  } else if (!bookAuthor.checkValidity()) {
-      bookAuthor.reportValidity();
-    } else if (!bookPages.checkValidity()) {
-        bookPages.reportValidity();
-      } else if (takeBookEntry()) {
-          postBooks();
-          clearForm();
-          body.removeChild(form);
-        }
-}
-
-
-function checkLibrary() {
+function checkLibrary(newBook) {
   const check1st = myLibrary.some((books) => books.title === this.title);
   const check2nd = myLibrary.some((books) => books.author === this.author);
   if (check1st === true && check2nd === true) {
@@ -149,6 +121,40 @@ function checkLibrary() {
   return true;
 
 }
+
+function takeBookEntry() {
+  const newBook = new Book(
+    bookTitle.value,
+    bookAuthor.value,
+    bookPages.value,
+    bookInfo.value,
+    getStatus(),
+  );
+
+  if (checkLibrary(newBook)) {
+    myLibrary.push(newBook);
+    return true;
+  }
+  return false
+}
+
+function checkSubmition() {
+  event.preventDefault();
+  if (!bookTitle.checkValidity()) {
+    bookTitle.reportValidity();
+  } else if (!bookAuthor.checkValidity()) {
+    bookAuthor.reportValidity();
+  } else if (!bookPages.checkValidity()) {
+    bookPages.reportValidity();
+  } else if (takeBookEntry()) {
+    postBooks();
+    clearForm();
+    body.removeChild(form);
+  }
+}
+
+
+
 
 function clearForm() {
   bookTitle.value = "";
