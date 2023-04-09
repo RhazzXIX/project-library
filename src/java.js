@@ -1,3 +1,17 @@
+import './styles/style.css'
+import { initializeApp } from 'firebase/app'
+
+const firebaseApp = initializeApp({
+  apiKey: "AIzaSyAwzlgosGqSGsrx4CzJK4liK09JnJ1Dy9w",
+  authDomain: "project-library-14926.firebaseapp.com",
+  projectId: "project-library-14926",
+  storageBucket: "project-library-14926.appspot.com",
+  messagingSenderId: "459523889275",
+  appId: "1:459523889275:web:2ad594c8e377bdd0c82ade",
+  measurementId: "G-488283056F"
+})
+
+
 const shelve = document.querySelector("main#shelve");
 const body = document.querySelector("body");
 
@@ -242,7 +256,7 @@ function addModifyButton(data) {
   // editBtn.setAttribute("class", "editBtn");
 
   const delBtn = document.createElement("img");
-  delBtn.setAttribute("src", "./images/Icon/trash-can-outline.svg");
+  delBtn.setAttribute("src", "../images/Icon/trash-can-outline.svg");
   delBtn.setAttribute("class", "delBtn");
   delBtn.setAttribute("alt", "Delete Icon");
   delBtn.setAttribute("data-book", data);

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Project Library</title>
+    <!-- <link rel="stylesheet" href="./style.css" /> -->
+    <!-- <script src="./java.js" defer></script> -->
+  <script defer src="main.js"></script></head>
+  <body>
+    <header class="main">
+      <h1>My Library</h1>
+      <label for="addBook">Add Book <button id="addBook">+</button></label>
+    </header>
+    <main id="shelve">
+      </div>
+    </main>
+    <section class="form-container hidden">
+      <form action="" method="get" id="book-form" novalidate>
+        <button id="close-form" type="button">✕</button>
+        <fieldset>
+          <legend>Book</legend>
+          <label for="title"> Title:
+          </label>
+          <input type="text" name="book" id="title" required/>
+          <label for="author">
+            Author: 
+          </label>
+          <input type="text" name="book" id="author" required />
+          <label for="page">
+            No. of Page:
+          </label>
+          <input type="number" name="book" id="page" min="1" required />
+          <label for="status">What's your status on this book?</label>
+          <ul id="status">
+            <li>
+              <label for="not-read">
+                <input type="radio" name="status" id="not-read" value="Not Read" checked /> 
+              Not Read
+              </label>
+            </li>
+            <li>
+              <label for="reading">
+                <input type="radio" name="status" id="reading" value="Reading"  required/> 
+              Reading
+              </label>
+            </li>
+            <li>
+              <label for="finished">
+                <input type="radio" name="status" id="finished" value="Finished" />
+                Finished
+                 </label>
+            </li>
+          </ul>
+          <label for="info">
+            Small info about the book:
+          </label>
+          <textarea name="book" id="info" cols="30" rows="10" placeholder="Optional"></textarea>
+          <button type="submit" id="submit" >Add Book</button>
+        </fieldset>
+      </form>
+    </section>
+    <section id="notice" class="hidden">
+      <aside class="notice">
+        This Book already exists in the library!
+      </aside>
+    </section>
+    <footer class="main">
+      <a href="https://github.com/RhazzXIX"><img id="github" src="2c0b3d17597d506011d6.png" alt="Github Logo"></a>
+    </footer>
+  </body>
+</html>
