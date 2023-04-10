@@ -240,7 +240,7 @@ div.buttons img {
 }
 
 div.buttons img:hover {
-  box-shadow: 1px 1px 8px black;
+  filter: drop-shadow(0 0 2px white);
 }
 
 div.buttons img:active {
